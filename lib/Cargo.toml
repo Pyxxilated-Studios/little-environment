@@ -1,0 +1,23 @@
+[package]
+name = "rust_lc3"
+version = "0.1.0"
+authors = ["Josh Hill <josh.hill189@gmail.com>"]
+
+[lib]
+name = "lc3lib"
+path = "src/lib.rs"
+
+[dependencies]
+colored = "*"
+clap = "*"
+lazy_static = "1.4"
+
+[profile.release]
+lto = true
+
+[dev-dependencies]
+criterion = "0.3"
+
+[[bench]]
+name = "bench"
+harness = false

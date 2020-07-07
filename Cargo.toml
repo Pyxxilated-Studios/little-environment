@@ -3,6 +3,8 @@ name = "little-env"
 version = "0.1.0"
 authors = ["Josh Hill <josh.hill189@gmail.com>"]
 edition = "2018"
+description = "An online environment for the LC-3"
+license = "MIT"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
@@ -26,7 +28,7 @@ features = [
 ]
 
 [dependencies.rust_lc3]
-path = "../../LC3/RustLC3"
+path = "lib/"
 version = "0.1.0"
 
 [profile.release]
