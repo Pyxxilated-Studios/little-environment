@@ -30,6 +30,3 @@ features = [
 [dependencies.rust_lc3]
 path = "lib/"
 version = "0.1.0"
-
-[profile.release]
-debug = true
