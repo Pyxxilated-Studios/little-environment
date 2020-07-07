@@ -250,7 +250,7 @@ export const TLN = {
         };
       })(t, n);
     for (let n = l.length - 1; n >= 0; n--)
-      t.addEventListener(l[n], o),
+      t.addEventListener(l[n], o, { passive: true }),
         TLN.eventList[e].push({ evt: l[n], hdlr: o });
     const r = ["change", "mousewheel", "scroll"],
       s = (function (e, t) {
@@ -259,7 +259,7 @@ export const TLN = {
         };
       })(t, n);
     for (let n = r.length - 1; n >= 0; n--)
-      t.addEventListener(r[n], s),
+      t.addEventListener(r[n], s, { passive: true }),
         TLN.eventList[e].push({ evt: r[n], hdlr: s });
   },
   remove_line_numbers: function (e) {

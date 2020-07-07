@@ -76,12 +76,12 @@ impl Component for Model {
         html! {
             <div class="pure-g" style="height: 100%;">
                 <label for="code-area" style="display: none;">{"Editor"}</label>
-                <textarea id="code-area" class="pure-u-10-24" spellcheck="false" oninput=self.link.callback(|s: InputData| Msg::Input(s.value)) value=self.text />
+                <textarea id="code-area" class="pure-u-10-24" aria-label="editor" spellcheck="false" oninput=self.link.callback(|s: InputData| Msg::Input(s.value)) value=self.text />
                 <div class="pure-u-2-24">
                     <button onclick=self.link.callback(|_| Msg::Assemble)>{"Assemble!"}</button>
                 </div>
                 <label for="assembler-output-pane" style="display: none;">{"Assembler Output Pane"}</label>
-                <textarea id="assembler-output-pane" class="pure-u-10-24" spellcheck="false" readonly=true value=self.assembled />
+                <textarea id="assembler-output-pane" class="pure-u-10-24" aria-label="output pane" spellcheck="false" readonly=true value=self.assembled />
                 <span class="pure-u-1-24" />
             </div>
         }
