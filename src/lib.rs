@@ -75,7 +75,6 @@ impl Component for Model {
     fn view(&self) -> Html {
         html! {
             <div class="pure-g" style="height: 100%;">
-                <span class="pure-u-1-24" />
                 <label for="code-area" style="display: none;">{"Editor"}</label>
                 <textarea id="code-area" class="pure-u-10-24" spellcheck="false" oninput=self.link.callback(|s: InputData| Msg::Input(s.value)) value=self.text />
                 <div class="pure-u-2-24">
