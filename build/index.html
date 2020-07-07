@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <meta name="description" content="An environment for the LC-3" />
+
+    <meta name="theme-color" content="#1a1423" />
+
+    <title>Little Computer Environment</title>
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"
+      integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ"
+      crossorigin="anonymous"
+      media="none"
+      onload="if(media!='all')media='all'"
+    />
+    <noscript
+      ><link
+        rel="stylesheet"
+        href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"
+        integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ"
+        crossorigin="anonymous"
+    /></noscript>
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/purecss@2.0.3/build/grids-responsive-min.css"
+      media="none"
+      onload="if(media!='all')media='all'"
+    />
+    <noscript
+      ><link
+        rel="stylesheet"
+        href="https://unpkg.com/purecss@2.0.3/build/grids-responsive-min.css"
+    /></noscript>
+
+    <link rel="stylesheet" href="styles.css" />
+
+    <script type="module">
+      /**
+       * Pressing the TAB key in a text area makes it lose focus and move to the next component, but
+       * if we want people to write code, then they'll possibly use a TAB. So, let's enable it selectively.
+       */
+      const enableTab = (id) => {
+        const element = document.getElementById(id);
+        element.onkeydown = (event) => {
+          const key = event.keyCode
+            ? event.keyCode
+            : event.charCode
+            ? event.charCode
+            : event.which;
+
+          // Tab key code is 9
+          if (key != 9 || event.shiftKey || event.ctrlKey || event.altKey) {
+            return true;
+          }
+
+          const scrollTop = element.scrollTop;
+          if (element.setSelectionRange) {
+            const selectionStart = element.selectionStart;
+            const selectionEnd = element.selectionEnd;
+            element.value =
+              element.value.substring(0, selectionStart) +
+              "\t" +
+              element.value.substr(selectionEnd);
+            element.setSelectionRange(selectionStart + 1, selectionStart + 1);
+            element.focus();
+          } else if (element.createTextRange) {
+            document.selection.createRange().text = "\t";
+            event.returnValue = false;
+          }
+
+          element.scrollTop = scrollTop;
+
+          if (event.preventDefault) {
+            event.preventDefault();
+          }
+
+          return false;
+        };
+      };
+
+      import init from "./lce.js";
+      // Have to wait for init to complete
+      init().then((_) => enableTab("code-area"));
+    </script>
+  </head>
+  <body></body>
+</html>
