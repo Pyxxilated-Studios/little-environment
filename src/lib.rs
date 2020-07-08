@@ -4,9 +4,8 @@
 #[global_allocator]
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
-#[macro_use]
-extern crate log;
 extern crate console_error_panic_hook;
+extern crate log;
 
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
@@ -14,15 +13,19 @@ use yew::prelude::*;
 use lc3lib::assembler::Assembler;
 use lc3lib::notifier;
 
+pub mod components;
+
+use components::editor::Editor;
+
 struct Model {
     link: ComponentLink<Self>,
-    text: String,
     assembled: String,
 }
 
+static NOTIFIER_NAME: &'static str = "Online Assembler";
+
 enum Msg {
-    Assemble,
-    Input(String),
+    Assemble(String),
 }
 
 impl Component for Model {
@@ -32,17 +35,14 @@ impl Component for Model {
     fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
         Self {
             link,
-            text: String::new(),
             assembled: String::new(),
         }
     }
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
         match msg {
-            Msg::Assemble => {
-                notifier::push(notifier::Notifier::Stringify(Vec::new()));
-
-                Assembler::from_string(self.text.clone())
+            Msg::Assemble(code) => {
+                Assembler::from_string(code)
                     .assemble(false)
                     .and_then(|(_, _, tokens)| {
                         self.assembled = String::new();
@@ -58,13 +58,8 @@ impl Component for Model {
                             .for_each(|error| self.assembled.push_str(&format!("{}", error)));
                         Some(())
                     });
-                info!("Done!");
 
-                notifier::clear();
-            }
-            Msg::Input(i) => {
-                self.text = i;
-                self.update(Self::Message::Assemble);
+                notifier::clear(Some(&NOTIFIER_NAME));
             }
         }
         true
@@ -80,8 +75,7 @@ impl Component for Model {
     fn view(&self) -> Html {
         html! {
             <div class="pure-g" style="height: 100%;">
-                <label for="code-area" style="display: none;">{"Editor"}</label>
-                <textarea id="code-area" class="pure-u-10-24" aria-label="editor" spellcheck="false" oninput=self.link.callback(|s: InputData| Msg::Input(s.value)) value=self.text />
+                <Editor onchange=self.link.callback(|code| Msg::Assemble(code)) />
                 <span class="pure-u-2-24" />
                 <label for="assembler-output-pane" style="display: none;">{"Assembler Output Pane"}</label>
                 <textarea id="assembler-output-pane" class="pure-u-10-24" aria-label="output pane" spellcheck="false" readonly=true value=self.assembled />
@@ -99,6 +93,12 @@ pub fn init_panic_hook() {
 #[wasm_bindgen(start)]
 pub fn run_app() {
     init_panic_hook();
+
+    notifier::register(
+        NOTIFIER_NAME.to_owned(),
+        notifier::Notifier::Stringify(Vec::new()),
+    );
+
     wasm_logger::init(wasm_logger::Config::default());
     App::<Model>::new().mount_to_body();
 }
