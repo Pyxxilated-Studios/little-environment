@@ -17,6 +17,7 @@ wasm-bindgen = "0.2.64"
 wasm-logger = "0.2"
 yew = "0.17.0"
 console_error_panic_hook = "0.1.6"
+wee_alloc = "0.4.5"
 
 [dev-dependencies]
 wasm-bindgen-test = "0.3"
@@ -30,3 +31,13 @@ features = [
 [dependencies.rust_lc3]
 path = "lib/"
 version = "0.1.0"
+
+[profile.release]
+# less code to include into binary
+panic = 'abort'
+# optimization over all codebase ( better optimization, slower build )
+codegen-units = 1
+# optimization for size
+opt-level = 's'
+# link time optimization using using whole-program analysis
+lto = true

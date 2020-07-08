@@ -1,5 +1,9 @@
 #![recursion_limit = "256"]
 
+// Use `wee_alloc` as the global allocator.
+#[global_allocator]
+static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
+
 #[macro_use]
 extern crate log;
 extern crate console_error_panic_hook;
@@ -60,6 +64,7 @@ impl Component for Model {
             }
             Msg::Input(i) => {
                 self.text = i;
+                self.update(Self::Message::Assemble);
             }
         }
         true
@@ -77,9 +82,7 @@ impl Component for Model {
             <div class="pure-g" style="height: 100%;">
                 <label for="code-area" style="display: none;">{"Editor"}</label>
                 <textarea id="code-area" class="pure-u-10-24" aria-label="editor" spellcheck="false" oninput=self.link.callback(|s: InputData| Msg::Input(s.value)) value=self.text />
-                <div class="pure-u-2-24">
-                    <button onclick=self.link.callback(|_| Msg::Assemble)>{"Assemble!"}</button>
-                </div>
+                <span class="pure-u-2-24" />
                 <label for="assembler-output-pane" style="display: none;">{"Assembler Output Pane"}</label>
                 <textarea id="assembler-output-pane" class="pure-u-10-24" aria-label="output pane" spellcheck="false" readonly=true value=self.assembled />
                 <span class="pure-u-1-24" />
