@@ -45,9 +45,9 @@ impl Notify for Notifier {
                 Stdout::Quiet => {}
             },
             Self::Stringify(ref mut strings) => match *diagnostic {
-                Diagnostic::Note(ref d) => strings.push(format!("{}", d.no_colour())),
-                Diagnostic::Highlight(ref d) => strings.push(format!("{}", d.no_colour())),
-                Diagnostic::Pointer(ref d) => strings.push(format!("{}", d.no_colour())),
+                Diagnostic::Note(ref d) => strings.push(format!("{}\n", d.no_colour())),
+                Diagnostic::Highlight(ref d) => strings.push(format!("{}\n", d.no_colour())),
+                Diagnostic::Pointer(ref d) => strings.push(format!("{}\n", d.no_colour())),
             },
         }
     }

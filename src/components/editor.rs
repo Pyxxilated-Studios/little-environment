@@ -49,8 +49,9 @@ impl Component for Editor {
         html! {
             <>
                 <label for="code-area" style="display: none;">{"Editor"}</label>
-                <textarea id="code-area" class="pure-u-10-24" aria-label="editor" spellcheck="false"
+                <textarea id="code-area" class="pure-u-lg-10-24 pure-u-21-24" aria-label="editor" spellcheck="false"
                     oninput=self.link.callback(|s: InputData| Self::Message::Input(s.value)) value=self.text />
+                <span class="pure-u-1-24 centering" />
             </>
         }
     }

@@ -45,6 +45,9 @@ impl Component for Model {
                 Assembler::from_string(code)
                     .assemble(false)
                     .and_then(|(_, _, tokens)| {
+                        notifier::notifications()
+                            .iter()
+                            .for_each(|warning| self.assembled.push_str(&format!("{}", warning)));
                         self.assembled = String::new();
                         tokens
                             .iter()
@@ -75,10 +78,11 @@ impl Component for Model {
     fn view(&self) -> Html {
         html! {
             <div class="pure-g" style="height: 100%;">
+                <span class="pure-u-1-24" />
                 <Editor onchange=self.link.callback(|code| Msg::Assemble(code)) />
-                <span class="pure-u-2-24" />
+                <span class="pure-u-1-24" />
                 <label for="assembler-output-pane" style="display: none;">{"Assembler Output Pane"}</label>
-                <textarea id="assembler-output-pane" class="pure-u-10-24" aria-label="output pane" spellcheck="false" readonly=true value=self.assembled />
+                <textarea id="assembler-output-pane" class="pure-u-lg-10-24 pure-u-22-24" aria-label="output pane" spellcheck="false" readonly=true value=self.assembled />
                 <span class="pure-u-1-24" />
             </div>
         }
