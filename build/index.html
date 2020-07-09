@@ -51,17 +51,25 @@
         href="https://unpkg.com/purecss@2.0.3/build/grids-responsive-min.css"
     /></noscript>
 
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="tln.css" />
+    <link
+      rel="stylesheet"
+      href="styles.css"
+      media="print"
+      onload="this.media='all'; this.onload=null;"
+    />
+    <link
+      rel="stylesheet"
+      href="tln.css"
+      media="print"
+      onload="this.media='all'; this.onload=null;"
+    />
 
     <script type="module">
-      import { TLN } from "./tln.js";
-
       /**
        * Pressing the TAB key in a text area makes it lose focus and move to the next component, but
        * if we want people to write code, then they'll possibly use a TAB. So, let's enable it selectively.
        */
-      const enableTab = (id) => {
+      const enableTab = async (id) => {
         const element = document.getElementById(id);
         element.onkeydown = (event) => {
           const key = event.keyCode
@@ -100,12 +108,15 @@
         };
       };
 
-      import init from "./lce.js";
-      // Have to wait for init to complete
-      init().then((_) => {
-        enableTab("code-area");
-        TLN.append_line_numbers("code-area");
-      });
+      // Lazy load some stuff
+      import("./lce.js").then((module) =>
+        module.default().then(() => {
+          enableTab("code-area");
+          import("./tln.js").then((module) =>
+            module.TLN.append_line_numbers("code-area")
+          );
+        })
+      );
     </script>
   </head>
   <body></body>
