@@ -1,4 +1,4 @@
-#![recursion_limit = "256"]
+#![recursion_limit = "512"]
 
 // Use `wee_alloc` as the global allocator.
 #[global_allocator]
@@ -16,6 +16,10 @@ use lc3lib::notifier;
 pub mod components;
 
 use components::editor::Editor;
+
+pub fn route(to: &str) -> String {
+    format!("https://www.pyxxilated.studio{}", to)
+}
 
 struct Model {
     link: ComponentLink<Self>,
@@ -77,14 +81,86 @@ impl Component for Model {
 
     fn view(&self) -> Html {
         html! {
-            <div class="pure-g" style="height: 100%;">
-                <span class="pure-u-1-24" />
-                <Editor onchange=self.link.callback(|code| Msg::Assemble(code)) />
-                <span class="pure-u-1-24" />
-                <label for="assembler-output-pane" style="display: none;">{"Assembler Output Pane"}</label>
-                <textarea id="assembler-output-pane" class="pure-u-lg-10-24 pure-u-22-24" aria-label="output pane" spellcheck="false" readonly=true value=self.assembled />
-                <span class="pure-u-1-24" />
-            </div>
+            <>
+                <div class="custom-wrapper pure-g shadow" id="menu">
+                    <div class="pure-u-1 pure-u-md-6-24">
+                        <div class="pure-menu">
+                            <a href=route("/") class="pure-menu-heading custom-brand">
+                                {"Pyxxilated Studios"}
+                            </a>
+                            <a href="#" aria-label="None" class="custom-toggle" id="toggle" style="height: 2.5em;">
+                                <s class="bar" />
+                                <s class="bar"/>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="pure-u-1 pure-u-md-12-24">
+                        <div
+                            class="pure-menu pure-menu-horizontal custom-can-transform centered"
+                        >
+                            <ul class="pure-menu-list">
+                                <li class="pure-menu-item">
+                                    <a href=route("/blog") class="pure-menu-link">{"Blog"}</a>
+                                </li>
+                                <li class="pure-menu-item">
+                                    <a href=route("/projects") class="pure-menu-link">{"Projects"}</a>
+                                </li>
+                                <li class="pure-menu-item">
+                                    <a href=route("/about")class="pure-menu-link">{"About"}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="pure-u-1 pure-u-md-6-24">
+                        <div class="pure-menu pure-menu-horizontal custom-menu-3">
+                            <ul class="pure-menu-list">
+                                <li class="pure-menu-item">
+                                    <a href="https://www.github.com/pyxxil" aria-label="Github">
+                                        <img
+                                            class="menu-image"
+                                            src=route("/static/images/GitHub.svg")
+                                            alt="Github"
+                                        />
+                                    </a>
+                                </li>
+                                <li class="pure-menu-item">
+                                    <a href="https://www.gitlab.com/pyxxil" aria-label="Gitlab">
+                                        <img
+                                            class="menu-image"
+                                            src=route("/static/images/GitLab.svg")
+                                            alt="Gitlab"
+                                        />
+                                    </a>
+                                </li>
+                                <li class="pure-menu-item">
+                                    <a href="https://www.linkedin.com/in/josh-hill-b655131a1/" aria-label="LinkedIn">
+                                        <img
+                                            class="menu-image"
+                                            src=route("/static/images/LinkedIn.svg")
+                                            alt="Gitlab"
+                                        />
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pure-g" style="height: calc(100% - 7em)">
+                    <span class="pure-u-1" style="height: 2em" />
+
+                    <Editor onchange=self.link.callback(|code| Msg::Assemble(code)) />
+
+                    <span class="pure-u-1 split" style="height: 2em" />
+
+                    <div class="pure-u-lg-1-2 pure-u-1" style="height: 100%">
+                        <label for="assembler-output-pane" style="display: none;">{"Assembler Output Pane"}</label>
+                        <span class="pure-u-1-24" />
+                        <textarea id="assembler-output-pane" class="pure-u-22-24 shadow bordered" aria-label="output pane" spellcheck="false" readonly=true value=self.assembled />
+                        <span class="pure-u-1-24" />
+                    </div>
+                </div>
+            </>
         }
     }
 }
