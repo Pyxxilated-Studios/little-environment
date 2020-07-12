@@ -45,9 +45,9 @@ impl Notify for Notifier {
                 Stdout::Quiet => {}
             },
             Self::Stringify(ref mut strings) => match *diagnostic {
-                Diagnostic::Note(ref d) => strings.push(format!("{}\n", d.no_colour())),
-                Diagnostic::Highlight(ref d) => strings.push(format!("{}\n", d.no_colour())),
-                Diagnostic::Pointer(ref d) => strings.push(format!("{}\n", d.no_colour())),
+                Diagnostic::Note(ref d) => strings.push(d.no_colour()),
+                Diagnostic::Highlight(ref d) => strings.push(d.no_colour()),
+                Diagnostic::Pointer(ref d) => strings.push(d.no_colour()),
             },
         }
     }
@@ -62,10 +62,7 @@ impl Notifier {
     }
 
     pub fn reset(&mut self) {
-        match self {
-            Self::Stringify(i) => i.clear(),
-            _ => {}
-        }
+        if let Self::Stringify(i) = self { i.clear(); }
     }
 }
 
@@ -120,7 +117,7 @@ pub fn notifications() -> Vec<String> {
             _ => false,
         })
         .map(|(_, notifier)| notifier.inner())
-        .unwrap_or_else(|| Vec::new())
+        .unwrap_or_else(Vec::new)
 }
 
 impl NotificationController {

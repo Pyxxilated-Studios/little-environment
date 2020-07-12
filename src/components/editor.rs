@@ -1,6 +1,6 @@
 use yew::prelude::*;
 
-pub enum EditorMessage {
+pub enum Messages {
     Input(String),
 }
 
@@ -16,7 +16,7 @@ pub struct Props {
 }
 
 impl Component for Editor {
-    type Message = EditorMessage;
+    type Message = Messages;
     type Properties = Props;
 
     fn create(properties: Self::Properties, link: ComponentLink<Self>) -> Self {
@@ -47,13 +47,11 @@ impl Component for Editor {
 
     fn view(&self) -> Html {
         html! {
-            <div class="pure-u-lg-1-2 pure-u-1" style="height: 100%">
-                <span class="pure-u-1-24" />
+            <>
                 <label for="code-area" style="display: none;">{"Editor"}</label>
                 <textarea id="code-area" class="pure-u-21-24 shadow bordered" aria-label="editor" spellcheck="false"
                     oninput=self.link.callback(|s: InputData| Self::Message::Input(s.value)) value=self.text />
-                    <span class="pure-u-1-24" />
-            </div>
+            </>
         }
     }
 }

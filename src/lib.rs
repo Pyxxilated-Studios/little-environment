@@ -8,7 +8,7 @@ extern crate console_error_panic_hook;
 extern crate log;
 
 use wasm_bindgen::prelude::*;
-use yew::prelude::*;
+use yew::prelude::{html, App, Component, ComponentLink, Html, ShouldRender};
 
 use lc3lib::assembler::Assembler;
 use lc3lib::notifier;
@@ -16,17 +16,14 @@ use lc3lib::notifier;
 pub mod components;
 
 use components::editor::Editor;
-
-pub fn route(to: &str) -> String {
-    format!("https://www.pyxxilated.studio{}", to)
-}
+use components::navigation::NavBar;
 
 struct Model {
     link: ComponentLink<Self>,
     assembled: String,
 }
 
-static NOTIFIER_NAME: &'static str = "Online Assembler";
+static NOTIFIER_NAME: &str = "Online Assembler";
 
 enum Msg {
     Assemble(String),
@@ -51,7 +48,7 @@ impl Component for Model {
                     .and_then(|(_, _, tokens)| {
                         notifier::notifications()
                             .iter()
-                            .for_each(|warning| self.assembled.push_str(&format!("{}", warning)));
+                            .for_each(|warning| self.assembled.push_str(&format!("{}\n", warning)));
                         self.assembled = String::new();
                         tokens
                             .iter()
@@ -62,7 +59,7 @@ impl Component for Model {
                         self.assembled = String::from("There were errors during assembly:\n");
                         notifier::notifications()
                             .iter()
-                            .for_each(|error| self.assembled.push_str(&format!("{}", error)));
+                            .for_each(|error| self.assembled.push_str(&format!("{}\n", error)));
                         Some(())
                     });
 
@@ -82,82 +79,21 @@ impl Component for Model {
     fn view(&self) -> Html {
         html! {
             <>
-                <div class="custom-wrapper pure-g shadow" id="menu">
-                    <div class="pure-u-1 pure-u-md-6-24">
-                        <div class="pure-menu">
-                            <a href=route("/") class="pure-menu-heading custom-brand">
-                                {"Pyxxilated Studios"}
-                            </a>
-                            <a href="#" aria-label="None" class="custom-toggle" id="toggle" style="height: 2.5em;">
-                                <s class="bar" />
-                                <s class="bar"/>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="pure-u-1 pure-u-md-12-24">
-                        <div
-                            class="pure-menu pure-menu-horizontal custom-can-transform centered"
-                        >
-                            <ul class="pure-menu-list">
-                                <li class="pure-menu-item">
-                                    <a href=route("/blog") class="pure-menu-link">{"Blog"}</a>
-                                </li>
-                                <li class="pure-menu-item">
-                                    <a href=route("/projects") class="pure-menu-link">{"Projects"}</a>
-                                </li>
-                                <li class="pure-menu-item">
-                                    <a href=route("/about")class="pure-menu-link">{"About"}</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="pure-u-1 pure-u-md-6-24">
-                        <div class="pure-menu pure-menu-horizontal custom-menu-3">
-                            <ul class="pure-menu-list">
-                                <li class="pure-menu-item">
-                                    <a href="https://www.github.com/pyxxil" aria-label="Github">
-                                        <img
-                                            class="menu-image"
-                                            src=route("/static/images/GitHub.svg")
-                                            alt="Github"
-                                        />
-                                    </a>
-                                </li>
-                                <li class="pure-menu-item">
-                                    <a href="https://www.gitlab.com/pyxxil" aria-label="Gitlab">
-                                        <img
-                                            class="menu-image"
-                                            src=route("/static/images/GitLab.svg")
-                                            alt="Gitlab"
-                                        />
-                                    </a>
-                                </li>
-                                <li class="pure-menu-item">
-                                    <a href="https://www.linkedin.com/in/josh-hill-b655131a1/" aria-label="LinkedIn">
-                                        <img
-                                            class="menu-image"
-                                            src=route("/static/images/LinkedIn.svg")
-                                            alt="Gitlab"
-                                        />
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                <NavBar />
 
                 <div class="pure-g" style="height: calc(100% - 7em)">
                     <span class="pure-u-1" style="height: 2em" />
 
-                    <Editor onchange=self.link.callback(|code| Msg::Assemble(code)) />
+                    <div class="pure-u-lg-1-2 pure-u-1" style="height: 100%; display: flex; justify-content: center">
+                        <Editor onchange=self.link.callback(|code| Msg::Assemble(code)) />
+                    </div>
 
                     <span class="pure-u-1 split" style="height: 2em" />
 
-                    <div class="pure-u-lg-1-2 pure-u-1" style="height: 100%">
+                    <div class="pure-u-lg-1-2 pure-u-1" style="height: 100%; display: flex; justify-content: center">
                         <label for="assembler-output-pane" style="display: none;">{"Assembler Output Pane"}</label>
-                        <span class="pure-u-1-24" />
-                        <textarea id="assembler-output-pane" class="pure-u-22-24 shadow bordered" aria-label="output pane" spellcheck="false" readonly=true value=self.assembled />
-                        <span class="pure-u-1-24" />
+                        <textarea id="assembler-output-pane" class="pure-u-22-24 shadow bordered" aria-label="output pane" spellcheck="false" readonly=true
+                            value=self.assembled />
                     </div>
                 </div>
             </>
