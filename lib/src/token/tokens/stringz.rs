@@ -1,8 +1,8 @@
 use std::collections::HashMap;
 use std::collections::VecDeque;
 
-use token::tokens::{expected, too_few_operands};
 use token::tokens::traits::*;
+use token::tokens::{expected, too_few_operands};
 use token::Symbol;
 use token::Token;
 
@@ -95,21 +95,19 @@ impl Requirements for Stringz {
         if let Some(token) = tokens.front() {
             expect!(self, tokens, token, Token::String, "String");
         } else {
-            too_few_operands(&self.file, 1, 0, &self.token, (self.column, self.line, self.token().len()));
+            too_few_operands(
+                &self.file,
+                1,
+                0,
+                &self.token,
+                (self.column, self.line, self.token().len()),
+            );
+            return tokens;
         }
 
-        let position = tokens.iter().position(|token| {
-            if let Token::String(_) = token {
-                false
-            } else {
-                true
-            }
-        });
-
-        if let Some(position) = position {
-            let mut extra_strings = tokens.drain(..position).collect::<Vec<_>>();
-
-            self.operands.append(&mut extra_strings);
+        // Get all of the strings that belong to this .STRINGZ
+        while let Some(Token::String(_)) = tokens.front() {
+            self.operands.push(tokens.pop_front().unwrap());
         }
 
         tokens
