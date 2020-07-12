@@ -51,12 +51,11 @@ pages:
     - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain nightly
     - source $HOME/.cargo/env
     - curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
-    - wasm-pack build --target web --out-name lce --out-dir ./build
+    - wasm-pack build --target web --out-name lce --out-dir ./public
 
     ##
     ## Deploy to gitlab and to the server
     ##
-    - mv build public
     - rsync -hrvz --delete -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" public gitlab@pyxxilated.studio:/var/www/little-env/
     - cp public/index.html public/404.html
   artifacts:
