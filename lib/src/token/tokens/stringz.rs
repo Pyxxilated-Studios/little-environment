@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 use std::collections::VecDeque;
 
-use token::tokens::expected;
+use token::tokens::{expected, too_few_operands};
 use token::tokens::traits::*;
 use token::Symbol;
 use token::Token;
@@ -94,6 +94,8 @@ impl Requirements for Stringz {
     fn consume(&mut self, mut tokens: VecDeque<Token>) -> VecDeque<Token> {
         if let Some(token) = tokens.front() {
             expect!(self, tokens, token, Token::String, "String");
+        } else {
+            too_few_operands(&self.file, 1, 0, &self.token, (self.column, self.line, self.token().len()));
         }
 
         let position = tokens.iter().position(|token| {
