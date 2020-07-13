@@ -12,7 +12,7 @@ impl Component for NavBar {
     type Properties = ();
 
     fn create(_: Self::Properties, _: ComponentLink<Self>) -> Self {
-        Self { }
+        Self {}
     }
 
     fn update(&mut self, _: Self::Message) -> ShouldRender {
