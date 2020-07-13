@@ -18,7 +18,7 @@ wasm-logger = "0.2"
 yew = "0.17.0"
 console_error_panic_hook = "0.1.6"
 wee_alloc = "0.4.5"
-lc3-rs = { git = "https://gitlab.com/Pyxxil/rust-lc3-as.git" }
+lc3-rs = { git = "https://gitlab.com/pyxxilated-studios/rust-lc3-as.git" }
 
 [dev-dependencies]
 wasm-bindgen-test = "0.3"
