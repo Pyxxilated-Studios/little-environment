@@ -1,7 +1,9 @@
 use yew::prelude::*;
+use wasm_bindgen::JsCast;
 
 pub enum Messages {
     Input(String),
+    Download,
 }
 
 pub struct Editor {
@@ -32,6 +34,19 @@ impl Component for Editor {
             Self::Message::Input(i) => {
                 self.text = i;
                 self.onchange.emit(self.text.clone());
+            },
+            Self::Message::Download => {
+                let filename = "temp.asm";
+                let mut content = String::from("data:text/plain;charset=utf-8,");
+                content.push_str(&self.text);
+
+                let window = web_sys::window().expect("Unable to get window");
+                let document = window.document().expect("Unable to get document");
+                let save = document.get_element_by_id("save-button").expect("Unable to find element").unchecked_into::<web_sys::HtmlAnchorElement>();
+
+                save.set_href(&content);
+                save.set_download(filename);
+                save.click();
             }
         }
 
@@ -51,6 +66,8 @@ impl Component for Editor {
                 <label for="code-area" style="display: none;">{"Editor"}</label>
                 <textarea id="code-area" class="pure-u-21-24 shadow bordered" aria-label="editor" spellcheck="false"
                     oninput=self.link.callback(|s: InputData| Self::Message::Input(s.value)) value=self.text />
+                <button onclick=self.link.callback(|_| Self::Message::Download)>{"Download"}</button>
+                <a href="#save" id="save-button" style="display: none">{"Save"}</a>
             </>
         }
     }
