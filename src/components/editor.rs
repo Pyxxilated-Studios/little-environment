@@ -1,5 +1,5 @@
-use yew::prelude::*;
 use wasm_bindgen::JsCast;
+use yew::prelude::*;
 
 pub enum Messages {
     Input(String),
@@ -34,7 +34,7 @@ impl Component for Editor {
             Self::Message::Input(i) => {
                 self.text = i;
                 self.onchange.emit(self.text.clone());
-            },
+            }
             Self::Message::Download => {
                 let filename = "temp.asm";
                 let mut content = String::from("data:text/plain;charset=utf-8,");
@@ -42,7 +42,10 @@ impl Component for Editor {
 
                 let window = web_sys::window().expect("Unable to get window");
                 let document = window.document().expect("Unable to get document");
-                let save = document.get_element_by_id("save-button").expect("Unable to find element").unchecked_into::<web_sys::HtmlAnchorElement>();
+                let save = document
+                    .get_element_by_id("save-button")
+                    .expect("Unable to find element")
+                    .unchecked_into::<web_sys::HtmlAnchorElement>();
 
                 save.set_href(&content);
                 save.set_download(filename);
