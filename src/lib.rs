@@ -81,7 +81,7 @@ impl Component for Model {
             <>
                 <NavBar />
 
-                <div class="pure-g" style="height: calc(100% - 10em)">
+                <div class="pure-g" style="height: calc(100% - 11em)">
                     <span class="pure-u-1" style="height: 2em" />
 
                     <div class="pure-u-lg-1-2 pure-u-1" style="height: 100%; display: flex; justify-content: center">
