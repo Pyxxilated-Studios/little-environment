@@ -81,7 +81,7 @@ impl Component for Model {
             <>
                 <NavBar />
 
-                <div class="pure-g" style="height: calc(100% - 7em)">
+                <div class="pure-g" style="height: calc(100% - 10em)">
                     <span class="pure-u-1" style="height: 2em" />
 
                     <div class="pure-u-lg-1-2 pure-u-1" style="height: 100%; display: flex; justify-content: center">
@@ -95,6 +95,11 @@ impl Component for Model {
                         <textarea id="assembler-output-pane" class="pure-u-22-24 shadow bordered" aria-label="output pane" spellcheck="false" readonly=true
                             value=self.assembled />
                     </div>
+
+                    <span class="pure-u-1" style="height: 2em" />
+
+                    <div id="wcb" class="wcb carbonbadge wcb-d" style="width: 100%; letter-spacing: 0 !important"></div>
+                    <script src="https://unpkg.com/website-carbon-badges@^1/b.min.js" defer=true></script>
                 </div>
             </>
         }
