@@ -16,7 +16,7 @@ use lc3lib::notifier;
 pub mod components;
 
 use components::editor::Editor;
-use components::navigation::NavBar;
+use components::navigation::{urlfor, NavBar};
 
 struct Model {
     link: ComponentLink<Self>,
@@ -42,18 +42,18 @@ impl Component for Model {
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
         match msg {
-            Msg::Assemble(code) => {
+            Self::Message::Assemble(code) => {
                 Assembler::from_string(code)
                     .assemble(false)
-                    .and_then(|(_, _, tokens)| {
+                    .map(|(_, _, tokens)| {
+                        self.assembled = String::new();
                         notifier::notifications()
                             .iter()
                             .for_each(|warning| self.assembled.push_str(&format!("{}\n", warning)));
-                        self.assembled = String::new();
+
                         tokens
                             .iter()
                             .for_each(|(_, s)| self.assembled.push_str(&format!("{}\n", s)));
-                        Some(())
                     })
                     .or_else(|| {
                         self.assembled = String::from("There were errors during assembly:\n");
@@ -66,6 +66,7 @@ impl Component for Model {
                 notifier::clear(Some(&NOTIFIER_NAME));
             }
         }
+
         true
     }
 
@@ -99,6 +100,7 @@ impl Component for Model {
                     <span class="pure-u-1" style="height: 2em" />
 
                     <div id="wcb" class="wcb carbonbadge wcb-d" style="width: 100%; letter-spacing: 0 !important"></div>
+                    <script src=urlfor("/static/js/main.js") defer=true></script>
                     <script src="https://unpkg.com/website-carbon-badges@^1/b.min.js" defer=true></script>
                 </div>
             </>

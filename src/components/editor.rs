@@ -36,9 +36,7 @@ impl Component for Editor {
                 self.onchange.emit(self.text.clone());
             }
             Self::Message::Download => {
-                let filename = "temp.asm";
-                let mut content = String::from("data:text/plain;charset=utf-8,");
-                content.push_str(&self.text);
+                let content = format!("data:text/plain;charset=utf-8,{}", self.text);
 
                 let window = web_sys::window().expect("Unable to get window");
                 let document = window.document().expect("Unable to get document");
@@ -48,7 +46,7 @@ impl Component for Editor {
                     .unchecked_into::<web_sys::HtmlAnchorElement>();
 
                 save.set_href(&content);
-                save.set_download(filename);
+                save.set_download("temp.asm");
                 save.click();
             }
         }
