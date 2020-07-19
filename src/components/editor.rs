@@ -67,7 +67,7 @@ impl Component for Editor {
                 <label for="code-area" style="display: none;">{"Editor"}</label>
                 <textarea id="code-area" class="pure-u-21-24 shadow bordered" aria-label="editor" spellcheck="false"
                     oninput=self.link.callback(|s: InputData| Self::Message::Input(s.value)) value=self.text />
-                <button onclick=self.link.callback(|_| Self::Message::Download) style="height: 2em; background-color: var(--background-colour); color: var(--text);" class="bordered">{"Download"}</button>
+                <button onclick=self.link.callback(|_| Self::Message::Download) style="height: 2em; background-color: var(--background-colour); color: var(--secondary);" class="bordered">{"Download"}</button>
                 <a href="#save" id="save-button" style="display: none">{"Save"}</a>
             </>
         }
