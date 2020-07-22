@@ -63,7 +63,7 @@ impl Component for Model {
                         Some(())
                     });
 
-                notifier::clear(Some(&NOTIFIER_NAME));
+                notifier::clear(Some(NOTIFIER_NAME));
             }
         }
 
@@ -85,7 +85,7 @@ impl Component for Model {
                 <div class="pure-g" style="height: calc(100% - 11em)">
                     <span class="pure-u-1" style="height: 2em" />
 
-                    <div class="pure-u-lg-1-2 pure-u-1" style="height: 100%; display: flex; justify-content: center">
+                    <div class="pure-u-lg-1-2 pure-u-1" style="height: 100%; display: flex;">
                         <Editor onchange=self.link.callback(|code| Msg::Assemble(code)) />
                     </div>
 
@@ -93,8 +93,8 @@ impl Component for Model {
 
                     <div class="pure-u-lg-1-2 pure-u-1" style="height: 100%; display: flex; justify-content: center">
                         <label for="assembler-output-pane" style="display: none;">{"Assembler Output Pane"}</label>
-                        <textarea id="assembler-output-pane" class="pure-u-22-24 shadow bordered" aria-label="output pane" spellcheck="false" readonly=true
-                            value=self.assembled />
+                        <textarea id="assembler-output-pane" class="pure-u-22-24 shadow bordered" aria-label="output pane" spellcheck="false"
+                            readonly=true value=self.assembled />
                     </div>
 
                     <span class="pure-u-1" style="height: 2em" />
@@ -123,6 +123,7 @@ pub fn run_app() {
     );
 
     wasm_logger::init(wasm_logger::Config::default());
+
     App::<Model>::new().mount_to_body();
 }
 

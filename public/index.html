@@ -59,12 +59,12 @@
       media="print"
       onload="this.media='all'; this.onload=null;"
     />
-
-    <link
-      rel="preconnect"
-      href="https://api.websitecarbon.com"
-      crossorigin="anonymous"
-    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://www.pyxxilated.studio/static/css/styles.css"
+      />
+    </noscript>
 
     <link
       rel="stylesheet"
@@ -75,128 +75,24 @@
     <noscript><link rel="stylesheet" href="styles.css" /></noscript>
 
     <link
-      rel="stylesheet"
-      href="tln.css"
-      media="print"
-      onload="this.media='all'; this.onload=null;"
+      rel="preconnect"
+      href="https://api.websitecarbon.com"
+      crossorigin="anonymous"
     />
-    <noscript><link rel="stylesheet" href="tln.css" /></noscript>
 
     <script type="module">
       /**
        * Pressing the TAB key in a text area makes it lose focus and move to the next component, but
        * if we want people to write code, then they'll possibly use a TAB. So, let's enable it selectively.
        */
-      const enableTab = async (id) => {
-        const element = document.getElementById(id);
-        element.onkeydown = (event) => {
-          const key = event.keyCode
-            ? event.keyCode
-            : event.charCode
-            ? event.charCode
-            : event.which;
-
-          // Tab key code is 9
-          if (key != 9 || event.shiftKey || event.ctrlKey || event.altKey) {
-            return true;
-          }
-
-          const scrollTop = element.scrollTop;
-          if (element.setSelectionRange) {
-            const selectionStart = element.selectionStart;
-            const selectionEnd = element.selectionEnd;
-            element.value =
-              element.value.substring(0, selectionStart) +
-              "\t" +
-              element.value.substr(selectionEnd);
-            element.setSelectionRange(selectionStart + 1, selectionStart + 1);
-            element.focus();
-          } else if (element.createTextRange) {
-            document.selection.createRange().text = "\t";
-            event.returnValue = false;
-          }
-
-          element.scrollTop = scrollTop;
-
-          if (event.preventDefault) {
-            event.preventDefault();
-          }
-
-          return false;
-        };
-      };
-
-      const TLN = {
-        eventList: {},
-        update_line_numbers: async (e, t) => {
-          let n = e.value.split("\n").length - t.children.length;
-          if (n > 0) {
-            const e = document.createDocumentFragment();
-            for (; n > 0; ) {
-              const t = document.createElement("span");
-              (t.className = "tln-line"), e.appendChild(t), (n -= 1);
-            }
-            t.appendChild(e);
-          }
-          for (; n < 0; ) {
-            t.removeChild(t.lastChild), (n += 1);
-          }
-        },
-        append_line_numbers: async (e) => {
-          const t = document.getElementById(e);
-          if (null == t) {
-            return console.warn(
-              "[tln.js] Couldn't find textarea of id '" + e + "'"
-            );
-          }
-          const n = document.createElement("div");
-          (n.className = "tln-wrapper"),
-            t.parentNode.insertBefore(n, t),
-            TLN.update_line_numbers(t, n),
-            (TLN.eventList[e] = []);
-          const l = ["propertychange", "input", "keydown", "keyup"],
-            o = (function (e, t) {
-              return function (n) {
-                ((10 != +e.scrollLeft ||
-                  (37 != n.keyCode &&
-                    37 != n.which &&
-                    "ArrowLeft" != n.code &&
-                    "ArrowLeft" != n.key)) &&
-                  36 != n.keyCode &&
-                  36 != n.which &&
-                  "Home" != n.code &&
-                  "Home" != n.key &&
-                  13 != n.keyCode &&
-                  13 != n.which &&
-                  "Enter" != n.code &&
-                  "Enter" != n.key &&
-                  "NumpadEnter" != n.code) ||
-                  (e.scrollLeft = 0),
-                  TLN.update_line_numbers(e, t);
-              };
-            })(t, n);
-          for (let n = l.length - 1; n >= 0; n -= 1) {
-            t.addEventListener(l[n], o, { passive: !0 }),
-              TLN.eventList[e].push({ evt: l[n], hdlr: o });
-          }
-          const r = ["change", "mousewheel", "scroll"],
-            s = (function (e, t) {
-              return function () {
-                t.scrollTop = e.scrollTop;
-              };
-            })(t, n);
-          for (let n = r.length - 1; n >= 0; n -= 1) {
-            t.addEventListener(r[n], s, { passive: !0 }),
-              TLN.eventList[e].push({ evt: r[n], hdlr: s });
-          }
-        },
-      };
+       let et=async id=>{let el=document.getElementById(id);el.onkeydown=ev=>{let key=ev.keyCode?ev.keyCode:ev.charCode?ev.charCode:ev.which;if(key!=9||ev.shiftKey||ev.ctrlKey||ev.altKey){return true}let st=el.scrollTop;if(el.setSelectionRange){let ss=el.selectionStart,se=el.selectionEnd;el.value=el.value.substring(0,ss)+"\t"+el.value.substr(se);el.setSelectionRange(ss+1,ss+1);el.focus()}else if(el.createTextRange){document.selection.createRange().text="\t";ev.returnValue=false}el.scrollTop=st;ev.prevDefault&&ev.prevDefault();return false}},
+       TLN={evl:{},uln:async(e,t)=>{let n=e.value.split("\n").length-t.children.length;if(n>0){let e=document.createDocumentFragment();for(;n>0;){let t=document.createElement("span");(t.className="tln-line"),e.appendChild(t),(n-=1)}t.appendChild(e)}for(;n<0;){t.removeChild(t.lastChild),(n+=1)}},aln:async(e)=>{let t=document.getElementById(e);if(null==t){return console.warn("Couldn't find '"+e+"'")}let n=document.createElement("div");(n.className="tln-wrapper"),t.parentNode.insertBefore(n,t),TLN.uln(t,n),(TLN.evl[e]=[]);let l=["propertychange","input","keydown","keyup"],o=((e,t)=>n=>{((10!=+e.scrollLeft||(37!=n.keyCode&&37!=n.which&&"ArrowLeft"!=n.code&&"ArrowLeft"!=n.key))&&36!=n.keyCode&&36!=n.which&&"Home"!=n.code&&"Home"!=n.key&&13!=n.keyCode&&13!=n.which&&"Enter"!=n.code&&"Enter"!=n.key&&"NumpadEnter"!=n.code)||(e.scrollLeft=0),TLN.uln(e,t)})(t,n);for(let n=l.length-1;n>=0;n-=1){t.addEventListener(l[n],o,{passive:!0}),TLN.evl[e].push({evt:l[n],hdlr:o})}let r=["change","mousewheel","scroll"],s=((e,t)=>_=>(t.scrollTop=e.scrollTop))(t,n);for(let n=r.length-1;n>=0;n-=1){t.addEventListener(r[n],s,{passive:!0}),TLN.evl[e].push({evt:r[n],hdlr:s})}}};
 
       // Lazy load some stuff
       import("./lce.js").then((module) =>
         module.default().then(() => {
-          enableTab("code-area");
-          TLN.append_line_numbers("code-area");
+          et("code-area");
+          TLN.aln("code-area");
         })
       );
     </script>
