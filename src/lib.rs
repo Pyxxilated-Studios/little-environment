@@ -104,9 +104,9 @@ impl Component for Model {
                     <span class="pure-u-1" style="height: 2em" />
 
                     <div id="wcb" class="wcb carbonbadge wcb-d" style="width: 100%; letter-spacing: 0 !important"></div>
-                    <script src=urlfor("/static/js/main.js") defer=true></script>
-                    <script src="https://unpkg.com/website-carbon-badges@^1/b.min.js" defer=true></script>
-                </div>
+                    </div>
+                <script src=urlfor("/static/js/main.js") defer=true></script>
+                <script src="https://unpkg.com/website-carbon-badges@^1/b.min.js" defer=true></script>
             </>
         }
     }
