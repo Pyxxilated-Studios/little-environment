@@ -82,7 +82,11 @@ impl Component for Model {
             <>
                 <NavBar />
 
-                <div class="pure-g" style="height: calc(100% - 11em)">
+                <div id="background">
+                    <canvas id="bgCanvas"></canvas>
+                </div>
+
+                <div class="pure-g" style="height: calc(100% - 11em); z-index: 2; position: relative; padding-top: 2em">
                     <span class="pure-u-1" style="height: 2em" />
 
                     <div class="pure-u-lg-1-2 pure-u-1" style="height: 100%; display: flex;">
