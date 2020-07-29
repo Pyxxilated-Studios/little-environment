@@ -97,14 +97,15 @@ impl Component for Model {
 
                     <div class="pure-u-lg-1-2 pure-u-1" style="height: 100%; display: flex; justify-content: center">
                         <label for="assembler-output-pane" style="display: none;">{"Assembler Output Pane"}</label>
-                        <textarea id="assembler-output-pane" class="pure-u-22-24 shadow bordered" aria-label="output pane" spellcheck="false"
+                        <textarea id="assembler-output-pane" class="pure-u-22-24 bordered" aria-label="output pane" spellcheck="false"
                             readonly=true value=self.assembled />
                     </div>
 
                     <span class="pure-u-1" style="height: 2em" />
 
                     <div id="wcb" class="wcb carbonbadge wcb-d" style="width: 100%; letter-spacing: 0 !important"></div>
-                    </div>
+                </div>
+
                 <script src=urlfor("/static/js/main.js") defer=true></script>
                 <script src="https://unpkg.com/website-carbon-badges@^1/b.min.js" defer=true></script>
             </>

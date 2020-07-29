@@ -66,7 +66,7 @@ impl Component for Editor {
             <div style="display: flex; flex-direction: column; height: 100%; margin-bottom:-4em" class="pure-u-1">
                 <div style="display: flex; flex-direction: row; height: 100%; justify-content: center">
                     <label for="code-area" style="display: none;">{"Editor"}</label>
-                    <textarea id="code-area" class="pure-u-21-24 shadow bordered" aria-label="editor" spellcheck="false"
+                    <textarea id="code-area" class="pure-u-21-24 bordered" aria-label="editor" spellcheck="false"
                         oninput=self.link.callback(|s: InputData| Self::Message::Input(s.value)) value=self.text />
                 </div>
 
