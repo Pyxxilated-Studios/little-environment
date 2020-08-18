@@ -44,7 +44,7 @@ pages:
     ##
     ## Scan the keys of the server.
     ##
-    - ssh-keyscan pyxxilated.studio >> ~/.ssh/known_hosts
+    - ssh-keyscan ${SERVER_IP} >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
 
     ## Build the project
@@ -56,7 +56,7 @@ pages:
     ##
     ## Deploy to gitlab and to the server
     ##
-    - rsync -hrvz --delete -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" public gitlab@pyxxilated.studio:/var/www/little-env/
+    - rsync -hrvz --delete -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" public gitlab@${SERVER_IP}:/var/www/little-env/
     - cp public/index.html public/404.html
   artifacts:
     paths:
