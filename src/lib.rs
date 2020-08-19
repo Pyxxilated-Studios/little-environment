@@ -82,12 +82,8 @@ impl Component for Model {
             <>
                 <NavBar />
 
-                <div id="background">
-                    <canvas id="bgCanvas"></canvas>
-                </div>
-
                 <div class="pure-g" style="height: calc(100% - 11em); z-index: 2; position: relative; padding-top: 2em">
-                    <span class="pure-u-1" style="height: 2em" />
+                    <span class="pure-u-1" style="height: 3.5em" />
 
                     <div class="pure-u-lg-1-2 pure-u-1" style="height: 100%; display: flex;">
                         <Editor onchange=self.link.callback(|code| Msg::Assemble(code)) />
@@ -103,11 +99,16 @@ impl Component for Model {
 
                     <span class="pure-u-1" style="height: 2em" />
 
-                    <div id="wcb" class="wcb carbonbadge wcb-d" style="width: 100%; letter-spacing: 0 !important"></div>
+                    <div id="wcb" class="wcb carbonbadge wcb-d" style="z-index: 2; width: 100%; letter-spacing: 0;">
+                        <div id="wcb_p">
+                            <p id="wcb_g">{"Measuring CO"}<sub>{2}</sub>{"…"}</p>
+                            <a target="_blank" rel="noopener" href="https://websitecarbon.com">{"Website Carbon"}</a>
+                        </div>
+                        <p id="wcb_2"></p>
+                    </div>
                 </div>
 
                 <script src=urlfor("/static/js/main.js") defer=true></script>
-                <script src="https://unpkg.com/website-carbon-badges@^1/b.min.js" defer=true></script>
             </>
         }
     }

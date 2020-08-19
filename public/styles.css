@@ -1,1 +1,76 @@
-body,html{height:100%}textarea{resize:none;background-color:rgba(0,0,0,0);color:var(--primary);height:100%}#code-area{display:inline-block;word-break:break-all;resize:none;overflow-wrap:normal;overflow-x:auto;white-space:pre;line-height:1.5;height:100%}@media only screen and (min-width:1024px){.split{display:none;width:0}}#assembler-output-pane{font-family:monospace!important}textarea{padding-bottom:0;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}.tln-line,.tln-wrapper{border:0;padding:0;outline:0;box-sizing:border-box;vertical-align:middle;list-style:none}.tln-wrapper{padding:0.1em .3125em;height:100%;word-break:break-all;overflow:hidden;display:inline-block;counter-reset:line;background-color:var(--background-colour);border:1px solid var(--primary);width:4.1667%}.tln-line{display:block;text-align:right;line-height:1.5;letter-spacing:normal!important;color:var(--secondary)}.tln-line::before{counter-increment:line;content:counter(line);font-size:1em;user-select:none}.download-button{background-color:var(--background-colour);color:var(--secondary);z-index:10}.download-button:hover{cursor:pointer}
+body,
+html {
+  height: 100%;
+}
+textarea {
+  resize: none;
+  background-color: var(--bg);
+  color: var(--primary);
+  height: 100%;
+}
+#code-area {
+  display: inline-block;
+  word-break: break-all;
+  resize: none;
+  overflow-wrap: normal;
+  overflow-x: auto;
+  white-space: pre;
+  line-height: 1.5;
+  height: 100%;
+}
+@media only screen and (min-width: 1024px) {
+  .split {
+    display: none;
+    width: 0;
+  }
+}
+#assembler-output-pane {
+  font-family: monospace !important;
+}
+textarea {
+  padding-bottom: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.tln-line,
+.tln-wrapper {
+  border: 0;
+  padding: 0;
+  outline: 0;
+  box-sizing: border-box;
+  vertical-align: middle;
+  list-style: none;
+}
+.tln-wrapper {
+  padding: 0.1em 0.3125em;
+  height: 100%;
+  word-break: break-all;
+  overflow: hidden;
+  display: inline-block;
+  counter-reset: line;
+  background-color: var(--bg);
+  border: 1px solid var(--primary);
+  width: 4.1667%;
+}
+.tln-line {
+  display: block;
+  text-align: right;
+  line-height: 1.5;
+  letter-spacing: normal !important;
+  color: var(--secondary);
+}
+.tln-line::before {
+  counter-increment: line;
+  content: counter(line);
+  font-size: 1em;
+  user-select: none;
+}
+.download-button {
+  background-color: var(--bg);
+  color: var(--secondary);
+  z-index: 10;
+}
+.download-button:hover {
+  cursor: pointer;
+}
