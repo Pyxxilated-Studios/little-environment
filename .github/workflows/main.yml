@@ -53,6 +53,5 @@ jobs:
 
       - name: Deploy
         run: |
-          yarn install --frozen-lockfile
-          yarn build
+          wasm-pack build --target web --out-name lce --out-dir ./public
           rsync -hrvz --delete -e "ssh -i ~/.ssh/key -o StrictHostKeyChecking=no" build gitlab@${{ secrets.SERVER_IP }}:/var/www/little-env/
