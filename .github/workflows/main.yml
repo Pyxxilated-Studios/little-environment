@@ -54,4 +54,4 @@ jobs:
       - name: Deploy
         run: |
           wasm-pack build --target web --out-name lce --out-dir ./public
-          rsync -hrvz --delete -e "ssh -i ~/.ssh/key -o StrictHostKeyChecking=no" build gitlab@${{ secrets.SERVER_IP }}:/var/www/little-env/
+          rsync -hrvz --delete -e "ssh -i ~/.ssh/key -o StrictHostKeyChecking=no" public gitlab@${{ secrets.SERVER_IP }}:/var/www/little-env/
