@@ -16,7 +16,7 @@ use lc3lib::notifier;
 pub mod components;
 
 use components::editor::Editor;
-use components::navigation::{urlfor, NavBar};
+use components::navigation::{static_urlfor, NavBar};
 
 struct Model {
     link: ComponentLink<Self>,
@@ -108,7 +108,7 @@ impl Component for Model {
                     </div>
                 </div>
 
-                <script src=urlfor("/static/js/main.js") defer=true></script>
+                <script src=static_urlfor("/js/main.js") defer=true></script>
             </>
         }
     }

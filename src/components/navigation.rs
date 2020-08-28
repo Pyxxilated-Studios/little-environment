@@ -1,6 +1,11 @@
 use yew::prelude::{html, Component, ComponentLink, Html, ShouldRender};
 
 #[must_use]
+pub fn static_urlfor(route: &str) -> String {
+    format!("https://static.pyxxilated.studio{}", route)
+}
+
+#[must_use]
 pub fn urlfor(route: &str) -> String {
     format!("https://www.pyxxilated.studio{}", route)
 }
