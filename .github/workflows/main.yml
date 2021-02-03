@@ -51,7 +51,8 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" >> ~/.ssh/key
           chmod 600 ~/.ssh/key
 
-      - name: Deploy
-        run: |
-          wasm-pack build --target web --out-name lce --out-dir ./public
-          rsync -hrvz --delete -e "ssh -i ~/.ssh/key -o StrictHostKeyChecking=no" public gitlab@${{ secrets.SERVER_IP }}:/var/www/little-env/
+      - name: Build
+        run: wasm-pack build --target web --out-name lce --out-dir ./public
+
+      -name: Deploy
+        run: rsync -hrvz --delete -e "ssh -i ~/.ssh/key -o StrictHostKeyChecking=no" public/*.{js,ts,html,css,wasm} gitlab@${{ secrets.SERVER_IP }}:/var/www/little-env/
