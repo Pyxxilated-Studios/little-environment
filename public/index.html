@@ -10,40 +10,28 @@
 
     <meta name="description" content="An environment for the LC-3" />
 
-    <meta name="theme-color" content="#110E19" />
+    <meta name="theme-color" content="#272635" />
 
-    <link rel="preconnect" href="https://static.pyxxilated.studio" />
-    <link rel="preconnect" href="https://unpkg.com" />
+    <link
+      rel="dns-prefetch"
+      href="https://static.pyxxilated.studio"
+      crossorigin="anonymous"
+    />
+    <link rel="dns-prefetch" href="https://unpkg.com" crossorigin="anonymous" />
 
     <link
       rel="stylesheet"
       href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"
       integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ"
       crossorigin="anonymous"
-      media="none"
-      onload="if(media!='all')media='all'"
+      media="all"
     />
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"
-        integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ"
-        crossorigin="anonymous"
-      />
-    </noscript>
 
     <link
       rel="stylesheet"
       href="https://unpkg.com/purecss@2.0.3/build/grids-responsive-min.css"
-      media="none"
-      onload="if(media!='all')media='all'"
+      media="all"
     />
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="https://unpkg.com/purecss@2.0.3/build/grids-responsive-min.css"
-      />
-    </noscript>
 
     <link
       rel="icon"
@@ -68,23 +56,10 @@
     <link
       rel="stylesheet"
       href="https://static.pyxxilated.studio/css/styles.css"
-      media="print"
-      onload="this.media='all'; this.onload=null;"
+      media="all"
     />
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="https://static.pyxxilated.studio/css/styles.css"
-      />
-    </noscript>
 
-    <link
-      rel="stylesheet"
-      href="styles.css"
-      media="print"
-      onload="this.media='all'; this.onload=null;"
-    />
-    <noscript><link rel="stylesheet" href="styles.css" /></noscript>
+    <link rel="stylesheet" href="/styles.css" media="all" />
 
     <script type="module">
       /**
@@ -178,7 +153,7 @@
 
       // Lazy load some stuff
       (async () => {
-        const module = await import("./lce.js");
+        const module = await import("/lce.js");
         await module.default();
         et("code-area");
         TLN.aln("code-area");

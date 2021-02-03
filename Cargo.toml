@@ -32,9 +32,9 @@ features = [
 ]
 
 [profile.release]
-# less code to include into binary
+# less code to include in the binary
 panic = 'abort'
-# optimization over all codebase ( better optimization, slower build )
+# optimization over the entire codebase (better optimization, slower build)
 codegen-units = 1
 # optimization for size
 opt-level = 's'
