@@ -54,5 +54,5 @@ jobs:
       - name: Build
         run: wasm-pack build --target web --out-name lce --out-dir ./public
 
-      -name: Deploy
+      - name: Deploy
         run: rsync -hrvz --delete -e "ssh -i ~/.ssh/key -o StrictHostKeyChecking=no" public/*.{js,ts,html,css,wasm} gitlab@${{ secrets.SERVER_IP }}:/var/www/little-env/
