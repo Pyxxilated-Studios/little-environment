@@ -63,19 +63,18 @@ impl Component for Editor {
 
     fn view(&self) -> Html {
         html! {
-            <div style="display: flex; flex-direction: column; height: 100%; margin-bottom:-4em" class="pure-u-1">
-                <div style="display: flex; flex-direction: row; height: 100%; justify-content: center">
-                    <label for="code-area" style="display: none;">{"Editor"}</label>
-                    <textarea id="code-area" class="pure-u-21-24 bordered" aria-label="editor" spellcheck="false"
-                        oninput=self.link.callback(|s: InputData| Self::Message::Input(s.value)) value=self.text />
-                </div>
-
-                <div style="display: flex; align-items: center; justify-content: center; margin-top:1em">
-                    <button onclick=self.link.callback(|_| Self::Message::Download)
-                        class="bordered pure-button download-button">{"Download"}</button>
+            <>
+                <div style="display: grid; grid-template-columns: 0 1fr; grid-template-rows: 1fr auto; overflow: auto">
+                    <label for="code-area" style="display: none">{"Editor"}</label>
+                    <textarea id="code-area" aria-label="editor" spellcheck="false"
+                        oninput=self.link.callback(|s: InputData| Self::Message::Input(s.value)) value=self.text
+                    />
+                    <button onclick=self.link.callback(|_| Self::Message::Download) class="download-button">
+                        {"Download"}
+                    </button>
                     <a href="#save" id="save-button" style="display: none">{"Save"}</a>
                 </div>
-            </div>
+            </>
         }
     }
 }
