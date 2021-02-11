@@ -45,7 +45,7 @@ impl Component for Model {
             Self::Message::Assemble(code) => {
                 Assembler::from_string(code)
                     .assemble(false)
-                    .map(|(_, _, tokens)| {
+                    .map(|(_, tokens)| {
                         self.assembled = String::new();
                         notifier::notifications()
                             .iter()
