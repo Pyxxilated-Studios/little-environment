@@ -67,7 +67,7 @@ impl Component for Editor {
                 <div style="display: grid; grid-template-columns: 0 1fr; grid-template-rows: 1fr auto; overflow: auto">
                     <label for="code-area" style="display: none">{"Editor"}</label>
                     <textarea id="code-area" aria-label="editor" spellcheck="false"
-                        oninput=self.link.callback(|s: InputData| Self::Message::Input(s.value)) value=self.text
+                        oninput=self.link.callback(|s: InputData| Self::Message::Input(s.value)) value=self.text.clone()
                     />
                     <button onclick=self.link.callback(|_| Self::Message::Download) class="download-button">
                         {"Download"}
